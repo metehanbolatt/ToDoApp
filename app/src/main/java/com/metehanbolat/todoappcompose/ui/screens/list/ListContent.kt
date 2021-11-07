@@ -18,10 +18,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.metehanbolat.todoappcompose.data.models.Priority
 import com.metehanbolat.todoappcompose.data.models.ToDoTask
 import com.metehanbolat.todoappcompose.ui.theme.*
+import com.metehanbolat.todoappcompose.util.RequestState
 
 @ExperimentalMaterialApi
 @Composable
 fun ListContent(
+    tasks: RequestState<List<ToDoTask>>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks is RequestState.Success){
+        if (tasks.data.isEmpty()){
+            EmptyContent()
+        }else{
+            DisplayTasks(
+                tasks = tasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
+    }
+
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun DisplayTasks(
     tasks: List<ToDoTask>,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
