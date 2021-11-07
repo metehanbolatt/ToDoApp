@@ -1,5 +1,6 @@
 package com.metehanbolat.todoappcompose.navigation.destinations
 
+import android.util.Log
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -17,7 +18,8 @@ fun NavGraphBuilder.taskComposable(
         arguments = listOf(navArgument(TASK_ARGUMENT_KEY){
             type = NavType.IntType
         })
-    ){
-
+    ){ navBackStackEntry ->
+        val taskId = navBackStackEntry.arguments!!.getInt(TASK_ARGUMENT_KEY)
+        Log.d("TaskComposable", taskId.toString())
     }
 }
