@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.metehanbolat.todoappcompose.data.models.Priority
 import com.metehanbolat.todoappcompose.data.models.ToDoTask
 import com.metehanbolat.todoappcompose.data.repositories.ToDoRepository
+import com.metehanbolat.todoappcompose.util.Constants.MAX_TITLE_LENGTH
 import com.metehanbolat.todoappcompose.util.RequestState
 import com.metehanbolat.todoappcompose.util.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -65,6 +66,12 @@ class SharedViewModel @Inject constructor(private val repository: ToDoRepository
             title.value = ""
             description.value = ""
             priority.value = Priority.LOW
+        }
+    }
+
+    fun updateTitle(newTitle: String){
+        if (newTitle.length < MAX_TITLE_LENGTH){
+            title.value = newTitle
         }
     }
 }
