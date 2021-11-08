@@ -1,6 +1,7 @@
 package com.metehanbolat.todoappcompose.navigation.destinations
 
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavGraphBuilder
@@ -13,6 +14,7 @@ import com.metehanbolat.todoappcompose.util.Constants.LIST_ARGUMENT_KEY
 import com.metehanbolat.todoappcompose.util.Constants.LIST_SCREEN
 import com.metehanbolat.todoappcompose.util.toAction
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 fun NavGraphBuilder.listComposable(
     navigateToTaskScreen: (taskId: Int) -> Unit,

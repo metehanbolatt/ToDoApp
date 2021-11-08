@@ -1,5 +1,6 @@
 package com.metehanbolat.todoappcompose.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,6 +11,7 @@ import com.metehanbolat.todoappcompose.navigation.destinations.taskComposable
 import com.metehanbolat.todoappcompose.ui.viewmodels.SharedViewModel
 import com.metehanbolat.todoappcompose.util.Constants.LIST_SCREEN
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(
