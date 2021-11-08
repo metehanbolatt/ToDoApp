@@ -71,13 +71,25 @@ class SharedViewModel @Inject constructor(private val repository: ToDoRepository
         }
     }
 
+    private fun updateTask(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                id = id.value,
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+            repository.updateTask(toDoTask = toDoTask)
+        }
+    }
+
     fun handleDatabaseActions(action: Action){
         when(action){
             Action.ADD -> {
                 addTask()
             }
             Action.UPDATE -> {
-
+                updateTask()
             }
             Action.DELETE -> {
 
