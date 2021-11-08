@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.metehanbolat.todoappcompose.data.models.Priority
 import com.metehanbolat.todoappcompose.data.models.ToDoTask
 import com.metehanbolat.todoappcompose.data.repositories.ToDoRepository
@@ -113,6 +112,12 @@ class SharedViewModel @Inject constructor(private val repository: ToDoRepository
         }
     }
 
+    private fun deleteAllTasks(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAllTask()
+        }
+    }
+
     fun handleDatabaseActions(action: Action){
         when(action){
             Action.ADD -> {
@@ -125,7 +130,7 @@ class SharedViewModel @Inject constructor(private val repository: ToDoRepository
                 deleteTask()
             }
             Action.DELETE_ALL -> {
-
+                deleteAllTasks()
             }
             Action.UNDO -> {
                 addTask()
