@@ -19,9 +19,7 @@ fun SetupNavigation(
     navController: NavHostController,
     sharedViewModel: SharedViewModel
 ) {
-    val screen = remember(navController){
-        Screens(navController = navController)
-    }
+    val screen = remember(navController){ Screens(navController = navController) }
 
     AnimatedNavHost(
         navController = navController,

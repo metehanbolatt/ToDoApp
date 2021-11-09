@@ -33,10 +33,8 @@ fun PriorityDropDown(
     onPrioritySelected: (Priority) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val angle: Float by animateFloatAsState(
-        targetValue = if (expanded) 180f else 0f
-    )
-    
+    val angle: Float by animateFloatAsState(targetValue = if (expanded) 180f else 0f)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -18,15 +18,13 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun ListScreen(
+    action: Action,
     navigateToTaskScreen: (taskId: Int) -> Unit,
     sharedViewModel: SharedViewModel
 ) {
-    LaunchedEffect(key1 = true){
-        sharedViewModel.getAllTasks()
-        sharedViewModel.readSortState()
+    LaunchedEffect(key1 = action){
+        sharedViewModel.handleDatabaseActions(action = action)
     }
-
-    val action by sharedViewModel.action
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
@@ -40,10 +38,8 @@ fun ListScreen(
 
     DisplaySnackBar(
         scaffoldState = scaffoldState,
-        handleDatabaseActions = { sharedViewModel.handleDatabaseActions(action = action) },
-        onUndoClicked = {
-            sharedViewModel.action.value = it
-        },
+        onComplete = { sharedViewModel.action.value = it },
+        onUndoClicked = { sharedViewModel.action.value = it },
         taskTitle = sharedViewModel.title.value,
         action = action
     )
@@ -68,6 +64,7 @@ fun ListScreen(
                 onSwipeToDelete = { action, task ->
                     sharedViewModel.action.value = action
                     sharedViewModel.updateTaskFields(selectedTask = task)
+                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
                 },
                 navigateToTaskScreen = navigateToTaskScreen
             )
@@ -99,13 +96,11 @@ fun ListFab(
 @Composable
 fun DisplaySnackBar(
     scaffoldState: ScaffoldState,
-    handleDatabaseActions: () -> Unit,
+    onComplete: (Action) -> Unit,
     onUndoClicked: (Action) -> Unit,
     taskTitle: String,
     action: Action
 ) {
-    handleDatabaseActions()
-
     val scope = rememberCoroutineScope()
     LaunchedEffect(key1 = action){
         if (action != Action.NO_ACTION){
@@ -120,6 +115,7 @@ fun DisplaySnackBar(
                     onUndoClicked = onUndoClicked
                 )
             }
+            onComplete(Action.NO_ACTION)
         }
     }
 }
