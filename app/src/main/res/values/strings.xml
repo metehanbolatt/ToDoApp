@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoAppCompose</string>
+    <string name="app_name">ToDo</string>
 
     <string name="to_do_logo">To-Do Logo</string>
     <string name="delete_all_tasks">Remove All Tasks?</string>
